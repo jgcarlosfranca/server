@@ -1,7 +1,9 @@
 const express = require("express");
 
+const SERVER_PORT = 5500
+
 const app = express()
 
-app.listen(5500, () => {
-    console.log("server up!")
+app.listen(SERVER_PORT, () => {
+    console.log(`Server UP na porta ${SERVER_PORT}`)
 })
