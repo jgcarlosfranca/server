@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose")
+const authRoutes = require("./routes/AuthRoutes")
+const cookieParser = require("cookie-parser")
 
 const SERVER_PORT = 5500
 
@@ -18,6 +20,11 @@ app.use(cors({
 }))
 
 app.use(express.json())
+
+
+app.use(cookieParser())
+
+app.use("/", authRoutes)
 
 app.listen(SERVER_PORT, () => {
     console.log(`Server UP na porta ${SERVER_PORT}`)
