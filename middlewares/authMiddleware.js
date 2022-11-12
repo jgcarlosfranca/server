@@ -1,12 +1,13 @@
 const UserModel = require("../model/authModel");
 const jwt = require("jsonwebtoken");
+const { SECRET_PHRASE } = require("../utils/constants")
 
 module.exports.checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
     if (token) {
         jwt.verify(
             token,
-            "kishan sheth super secret key",
+            SECRET_PHRASE,
             async(err, decodedToken) => {
                 if (err) {
                     res.json({ status: false });
