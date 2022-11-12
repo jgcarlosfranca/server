@@ -5,6 +5,13 @@ const maxTimeExpired = 3 * 24 * 60 * 60 // token expira em 3 dias
 
 
 //"Hupão é muito melhor que a Raiden Shogun" --> gerador de hash aleatorio com frase grande
+/* Para observar se está certo entrar no site jwt.io
+colar o jwt gerado no resgitro 
+o primeiro codigo antes do ponto é o header
+o roxinho é o id q apresenta no banco 
+pra validar coloca o secret phrase --> Hupão é muito melhor que a Raiden Shogun e é validado no site do jwt --> (no footer) "Signature Verified"
+*/
+
 const createToken = (id) => {
     return jwt.sign({ id }, "Hupão é muito melhor que a Raiden Shogun", {
         expiresIn: maxTimeExpired,
