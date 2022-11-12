@@ -1,7 +1,6 @@
 const UserModel = require("../model/UserModel")
 const jwt = require("jsonwebtoken")
-
-const maxTimeExpired = 3 * 24 * 60 * 60 // token expira em 3 dias
+const { MAX_TIME_EXPIRED_TOKEN, SECRET_PHRASE } = require("../utils/constants")
 
 
 //"Hupão é muito melhor que a Raiden Shogun" --> gerador de hash aleatorio com frase grande
@@ -13,8 +12,8 @@ pra validar coloca o secret phrase --> Hupão é muito melhor que a Raiden Shogu
 */
 
 const createToken = (id) => {
-    return jwt.sign({ id }, "Hupão é muito melhor que a Raiden Shogun", {
-        expiresIn: maxTimeExpired,
+    return jwt.sign({ id }, SECRET_PHRASE, {
+        expiresIn: MAX_TIME_EXPIRED_TOKEN,
     })
 }
 
@@ -54,7 +53,7 @@ module.exports.register = async(req, res, next) => {
         res.cookie("jwt", token, {
             withCredentials: true,
             httpOnly: false,
-            maxAge: maxTimeExpired * 1000,
+            maxAge: MAX_TIME_EXPIRED_TOKEN * 1000,
         });
 
         res.status(201).json({ user: user._id, created: true });
@@ -70,7 +69,7 @@ module.exports.login = async(req, res) => {
     try {
         const user = await UserModel.login(email, password);
         const token = createToken(user._id);
-        res.cookie("jwt", token, { httpOnly: false, maxAge: maxTimeExpired * 1000 });
+        res.cookie("jwt", token, { httpOnly: false, maxAge: MAX_TIME_EXPIRED_TOKEN * 1000 });
         res.status(200).json({ user: user._id, status: true });
     } catch (err) {
         const errors = handleErrors(err);
