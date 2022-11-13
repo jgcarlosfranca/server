@@ -3,7 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose")
 const authRoutes = require("./routes/AuthRoutes")
 const cookieParser = require("cookie-parser")
-const { SERVER_PORT } = require("../utils/constants")
+const { SERVER_PORT } = require("../server/utils/constants")
 
 const app = express()
 
